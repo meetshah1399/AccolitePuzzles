@@ -45,11 +45,29 @@ public class Array {
         for (int i = 1; i <= m; i++) {
             b[sc.nextInt()] = i;
         }
-        
+        System.out.println("n: " + n + "\nm: " + m + "\n");
+
         int ans = 0;
         
         // Write the logic here
-        
+        int max = 0;
+
+        for (int i : a){
+            if (b[i] > 0){
+                ans++;
+
+                if (ans == n){
+                    return (n - 1);
+                }
+                if (ans > max){
+                    max = ans;
+                }
+            }
+            else{
+                ans = 0;
+            }
+        }
+        ans = max;
         return ans;
     }
 
