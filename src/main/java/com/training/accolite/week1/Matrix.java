@@ -6,9 +6,31 @@ import java.util.Scanner;
 public class Matrix {
 	
 	private final Scanner sc;
-	
+
 	public int[][] solve(int[][] A) {
-	    // Write logic here...
+		// Write logic here...
+	    int m = A.length;	// num rows
+	    int n = A[0].length;	// num cols
+		int[][] ans = new int[m][n];	// create new matrix initiated to all 0s
+
+		// iterate through matrix
+		for (int i = 0; i < m; i++){
+			for (int j = 0; j < n; j++){
+				int neighbours = count(A, i, j, m, n);	// number of alive neighbours
+
+				// only need to check conditions where next state cell is alive (=1)
+				if (neighbours == 3){
+					ans[i][j] = 1;
+				}
+				else if (neighbours == 2){
+					if (A[i][j] == 1){
+						ans[i][j] = 1;
+					}
+				}
+			}
+		}
+
+        return ans;
 	}
 
 	int dis[][]={{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
