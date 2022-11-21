@@ -70,12 +70,18 @@ public class Array {
                         if (bIndex.get(glyph) > indexOfLastGlyph) {
                             indexOfLastGlyph = bIndex.get(glyph);
                             // If this is the first glyph that we find, keep its index for wraparound checking
-                            if (indexOfLastGlyph == -1) indexOfLastGlyph = bIndex.get(glyph);
+                            if (indexOfFirstGlyph == -1) indexOfFirstGlyph = bIndex.get(glyph);
+                            // if we have already wrapped around, be careful of going out of bounds (to do this,
+                            // compare the index of current glyph and the index of the first glyph which was found)
+                            if (wrappedAround && bIndex.get(glyph) > indexOfFirstGlyph) {
+                                isSubsequence = false;
+                                break;
+                            }
                         } else {
                             // If the order was not increasing, allow for one wraparound, but be careful of
                             // wrapping around more than once (to do this, compare the index of current glyph and
                             // the index of the first glyph which was found)
-                            if (!wrappedAround && indexOfLastGlyph < indexOfFirstGlyph) {
+                            if (!wrappedAround && bIndex.get(glyph) < indexOfFirstGlyph) {
                                 wrappedAround = true;
                             } else {
                                 // If we have already wrapped, the current substring is not a subsequence, so
