@@ -45,12 +45,32 @@ public class Array {
         for (int i = 1; i <= m; i++) {
             b[sc.nextInt()] = i;
         }
-        
+
         int ans = 0;
         
         // Write the logic here
-        
-        return ans;
+
+        int max = 0;
+
+        for (int i : a){
+            // true if i is also present in b
+            if (b[i] > 0){
+                ans++;
+                if (ans == n){
+                    // in case of a being a subsequence of b
+                    return (n - 1);
+                }
+                if (ans > max){
+                    // save max tally
+                    max = ans;
+                }
+            }
+            else{
+                // reset tally if substring broken
+                ans = 0;
+            }
+        }
+        return max;
     }
 
 }
